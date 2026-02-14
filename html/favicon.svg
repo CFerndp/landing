@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128">
+  <defs>
+    <radialGradient id="pulse" cx="50%" cy="50%" r="65%">
+      <stop offset="0%" stop-color="#00e5ff" stop-opacity="0.95"/>
+      <stop offset="45%" stop-color="#00e5ff" stop-opacity="0.6"/>
+      <stop offset="100%" stop-color="#0a0a0f" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="text" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ff2d95"/>
+      <stop offset="50%" stop-color="#bf5fff"/>
+      <stop offset="100%" stop-color="#39ff14"/>
+    </linearGradient>
+  </defs>
+  <rect width="128" height="128" rx="26" fill="#050509"/>
+  <circle cx="64" cy="64" r="52" stroke="#111125" stroke-width="8" fill="none"/>
+  <circle cx="64" cy="64" r="40" fill="url(#pulse)"/>
+  <text x="64" y="74" font-family="'Orbitron', 'Rajdhani', sans-serif" font-size="42" font-weight="700" text-anchor="middle" fill="url(#text)">CF</text>
+</svg>
