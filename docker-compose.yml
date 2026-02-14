@@ -1,11 +1,21 @@
 version: '3.8'
 
 services:
-  web:
-    image: nginx:alpine
-    container_name: landing-server
+  caddy:
+    image: caddy:2.8
+    container_name: cferndp-caddy
+    restart: unless-stopped
     ports:
       - "80:80"
+      - "443:443"
     volumes:
-      - ./html:/usr/share/nginx/html
-    restart: unless-stopped
+      - ./caddy/Caddyfile:/etc/caddy/Caddyfile:ro
+      - ./html:/srv/landing:ro
+      - caddy_data:/data
+      - caddy_config:/config
+    environment:
+      - TZ=Europe/Madrid
+
+volumes:
+  caddy_data:
+  caddy_config:
