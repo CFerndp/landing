@@ -832,6 +832,24 @@
         }
 
         /* ── TYPEWRITER ───────────────────────────────────── */
+        /* Mobile: Disable typewriter effect, allow text wrap */
+        @media (max-width: 600px) {
+            .typewriter-wrapper {
+                display: block;
+                width: 100%;
+                padding: 0 1rem;
+            }
+            .hero-subtitle.typewriter {
+                white-space: normal;
+                text-align: center;
+                width: auto;
+                overflow: visible;
+                border-right: none;
+                animation: none;
+                font-size: clamp(0.85rem, 2.2vw, 1rem);
+                line-height: 1.5;
+            }
+        }
         .typewriter {
             overflow: hidden;
             border-right: 2px solid var(--neon-green);
