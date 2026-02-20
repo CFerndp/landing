@@ -638,7 +638,44 @@
             letter-spacing: 2px;
         }
 
+        /* ── MOBILE HAMBURGER MENU ────────────────────────── */
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            justify-content: center;
+            gap: 5px;
+            width: 30px;
+            height: 30px;
+            cursor: pointer;
+            z-index: 1001;
+            padding: 4px;
+        }
+        .hamburger span {
+            display: block;
+            width: 100%;
+            height: 2px;
+            background: var(--neon-blue);
+            border-radius: 2px;
+            transition: all 0.3s ease;
+            box-shadow: 0 0 8px rgba(0,229,255,0.5);
+        }
+        /* Hamburger animation when active */
+        .hamburger.active span:nth-child(1) {
+            transform: rotate(45deg) translate(5px, 5px);
+        }
+        .hamburger.active span:nth-child(2) {
+            opacity: 0;
+        }
+        .hamburger.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(5px, -5px);
+        }
+        .nav-links {
+            display: contents; /* Default: links flow normally in nav */
+        }
+
         /* ── RESPONSIVE ───────────────────────────────────── */
+        
+        /* Medium screens (tablets) */
         @media (max-width: 768px) {
             nav { gap: 0.5rem; padding: 0.8rem 1rem; }
             nav a { font-size: 0.65rem; padding: 0.3rem 0.6rem; letter-spacing: 1px; }
@@ -650,7 +687,169 @@
             .timeline-item::before { left: -2rem; }
         }
 
+        /* Mobile screens (<600px) - Hamburger menu + responsive improvements */
+        @media (max-width: 600px) {
+            /* === HAMBURGER MENU (ALTA PRIORIDAD) === */
+            .hamburger {
+                display: flex;
+            }
+            nav {
+                justify-content: flex-end;
+                padding: 0.8rem 1rem;
+            }
+            .nav-links {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                flex-direction: column;
+                background: rgba(10,10,15,0.98);
+                backdrop-filter: blur(20px);
+                border-bottom: 1px solid rgba(0,229,255,0.2);
+                padding: 1rem 0;
+                gap: 0;
+            }
+            .nav-links.active {
+                display: flex;
+            }
+            nav a {
+                /* Touch targets (BAJA PRIORIDAD): min 44x44px */
+                padding: 0.9rem 1.5rem;
+                min-height: 44px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-size: 0.8rem;
+                letter-spacing: 2px;
+                border-bottom: 1px solid rgba(255,255,255,0.05);
+                border-radius: 0;
+            }
+            nav a:last-child {
+                border-bottom: none;
+            }
+            nav a:hover {
+                background: rgba(0,229,255,0.08);
+            }
+
+            /* === HERO STATS (MEDIA PRIORIDAD) === */
+            .hero-stats {
+                gap: 1.5rem 2rem;
+            }
+            .hero-stat-number {
+                font-size: 2rem; /* Slightly larger on mobile */
+            }
+            .hero-stat-label {
+                font-size: 0.7rem;
+            }
+
+            /* === TIMELINE (ALTA PRIORIDAD) === */
+            .timeline {
+                padding-left: 1.5rem; /* Reduced from 2rem */
+            }
+            .timeline::before {
+                width: 1px; /* Thinner line on mobile */
+            }
+            .timeline-item::before {
+                left: -1.5rem; /* Adjusted dot position */
+                width: 10px;
+                height: 10px;
+                margin-left: -4px; /* Better alignment */
+            }
+            .timeline-item {
+                padding: 1.4rem;
+            }
+
+            /* === ABOUT SECTION SPACING (BAJA PRIORIDAD) === */
+            .about-content {
+                gap: 2rem;
+            }
+            .about-details {
+                padding: 1.5rem;
+            }
+        }
+
+        /* Small mobile screens (375-600px) - Hero stats 2 columns */
+        @media (min-width: 375px) and (max-width: 600px) {
+            .hero-stats {
+                display: grid;
+                grid-template-columns: repeat(2, 1fr);
+                gap: 1.5rem;
+                width: 100%;
+                max-width: 320px;
+            }
+            .hero-stat:last-child {
+                grid-column: 1 / -1; /* Center the third stat */
+            }
+        }
+
+        /* Very small screens (<400px) - Grid fixes */
+        @media (max-width: 400px) {
+            /* === GRIDS RESPONSIVOS (MEDIA PRIORIDAD) === */
+            .skills-grid {
+                grid-template-columns: 1fr; /* Force single column */
+            }
+            .edu-grid {
+                grid-template-columns: 1fr; /* Force single column */
+            }
+            .contact-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            /* Additional spacing for very small screens */
+            section {
+                padding: 4rem 1rem 2.5rem;
+            }
+            .timeline-item {
+                padding: 1.2rem;
+            }
+            .skill-category {
+                padding: 1.4rem;
+            }
+        }
+
+        /* Extra small screens (<375px) - Hero stats 1 column */
+        @media (max-width: 374px) {
+            .hero-stats {
+                display: flex;
+                flex-direction: column;
+                gap: 1.2rem;
+            }
+            .hero-stat-number {
+                font-size: 1.8rem;
+            }
+            
+            /* Even more compact timeline */
+            .timeline {
+                padding-left: 1.2rem;
+            }
+            .timeline-item::before {
+                left: -1.2rem;
+                width: 8px;
+                height: 8px;
+                margin-left: -3px;
+            }
+        }
+
         /* ── TYPEWRITER ───────────────────────────────────── */
+        /* Mobile: Disable typewriter effect, allow text wrap */
+        @media (max-width: 600px) {
+            .typewriter-wrapper {
+                display: block;
+                width: 100%;
+                padding: 0 1rem;
+            }
+            .hero-subtitle.typewriter {
+                white-space: normal;
+                text-align: center;
+                width: auto;
+                overflow: visible;
+                border-right: none;
+                animation: none;
+                font-size: clamp(0.85rem, 2.2vw, 1rem);
+                line-height: 1.5;
+            }
+        }
         .typewriter {
             overflow: hidden;
             border-right: 2px solid var(--neon-green);
@@ -695,12 +894,21 @@
 
 <!-- NAVBAR -->
 <nav>
-    <a href="#hero">Home</a>
-    <a href="#about">About</a>
-    <a href="#experience">Experience</a>
-    <a href="#education">Education</a>
-    <a href="#skills">Skills</a>
-    <a href="#contact">Contact</a>
+    <!-- Mobile hamburger button -->
+    <div class="hamburger" onclick="this.classList.toggle('active'); document.querySelector('.nav-links').classList.toggle('active');" aria-label="Toggle navigation menu">
+        <span></span>
+        <span></span>
+        <span></span>
+    </div>
+    <!-- Navigation links -->
+    <div class="nav-links">
+        <a href="#hero" onclick="closeMenu()">Home</a>
+        <a href="#about" onclick="closeMenu()">About</a>
+        <a href="#experience" onclick="closeMenu()">Experience</a>
+        <a href="#education" onclick="closeMenu()">Education</a>
+        <a href="#skills" onclick="closeMenu()">Skills</a>
+        <a href="#contact" onclick="closeMenu()">Contact</a>
+    </div>
 </nav>
 
 <!-- ═══════════════════ HERO ═══════════════════ -->
@@ -1067,6 +1275,12 @@
 
 <!-- ═══════════════════ SCRIPTS ═══════════════════ -->
 <script>
+    // Mobile menu close function
+    function closeMenu() {
+        document.querySelector('.hamburger').classList.remove('active');
+        document.querySelector('.nav-links').classList.remove('active');
+    }
+
     // Intersection Observer for scroll reveal
     const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
