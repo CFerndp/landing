@@ -882,6 +882,74 @@
         .timeline-item:nth-child(3) { transition-delay: 0.15s; }
         .timeline-item:nth-child(4) { transition-delay: 0.2s;  }
         .timeline-item:nth-child(5) { transition-delay: 0.25s; }
+
+        /* ── EASTER EGG: MATRIX RAIN ──────────────────────── */
+        #matrix-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 9998;
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 0.5s ease;
+        }
+        #matrix-canvas.active {
+            opacity: 1;
+        }
+        #matrix-canvas.fade-out {
+            opacity: 0;
+        }
+
+        /* ── EASTER EGG: TOAST NOTIFICATION ───────────────── */
+        .easter-toast {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0.8);
+            z-index: 9999;
+            background: rgba(10, 10, 15, 0.95);
+            border: 2px solid var(--neon-green);
+            border-radius: 12px;
+            padding: 2rem 3rem;
+            text-align: center;
+            box-shadow: 
+                0 0 40px rgba(57, 255, 20, 0.5),
+                0 0 80px rgba(57, 255, 20, 0.3),
+                inset 0 0 20px rgba(57, 255, 20, 0.1);
+            opacity: 0;
+            pointer-events: none;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        .easter-toast.active {
+            opacity: 1;
+            transform: translate(-50%, -50%) scale(1);
+        }
+        .easter-toast.fade-out {
+            opacity: 0;
+            transform: translate(-50%, -50%) scale(0.9);
+        }
+        .easter-toast-text {
+            font-family: 'Orbitron', sans-serif;
+            font-size: clamp(1rem, 3vw, 1.4rem);
+            color: var(--neon-green);
+            text-shadow: 0 0 20px rgba(57, 255, 20, 0.8);
+            letter-spacing: 2px;
+            line-height: 1.6;
+            animation: toastGlow 1s ease-in-out infinite alternate;
+        }
+        @keyframes toastGlow {
+            0%   { text-shadow: 0 0 20px rgba(57, 255, 20, 0.6); }
+            100% { text-shadow: 0 0 30px rgba(57, 255, 20, 1), 0 0 60px rgba(57, 255, 20, 0.5); }
+        }
+        .easter-toast-hint {
+            font-family: 'Share Tech Mono', monospace;
+            font-size: 0.75rem;
+            color: #666;
+            margin-top: 1rem;
+            letter-spacing: 1px;
+        }
     </style>
 </head>
 <body>
@@ -1269,7 +1337,7 @@
 </section>
 
 <!-- FOOTER -->
-<footer>
+<footer data-hint="konami">
     &copy; 2026 Cristian Fernandez &mdash; Built with passion &amp; neon glow
 </footer>
 
@@ -1314,6 +1382,187 @@
                 ? 'var(--neon-blue)' : 'transparent';
         });
     });
+
+    // ═══════════════════════════════════════════════════════════════
+    // 🎮 EASTER EGG: KONAMI CODE → MATRIX RAIN
+    // Classic sequence: ↑ ↑ ↓ ↓ ← → ← → B A
+    // ═══════════════════════════════════════════════════════════════
+    (function() {
+        'use strict';
+
+        // Hint in console for curious developers
+        console.log('🕹️ Hint: Try the legendary code...');
+
+        // Konami code sequence
+        const KONAMI_CODE = [
+            'ArrowUp', 'ArrowUp',
+            'ArrowDown', 'ArrowDown',
+            'ArrowLeft', 'ArrowRight',
+            'ArrowLeft', 'ArrowRight',
+            'KeyB', 'KeyA'
+        ];
+
+        let inputSequence = [];
+        let easterEggActive = false;
+        let animationId = null;
+        let autoDeactivateTimer = null;
+
+        // Create Matrix canvas element
+        const canvas = document.createElement('canvas');
+        canvas.id = 'matrix-canvas';
+        document.body.appendChild(canvas);
+
+        // Create toast notification element
+        const toast = document.createElement('div');
+        toast.className = 'easter-toast';
+        toast.innerHTML = `
+            <div class="easter-toast-text">
+                🐕 WOOF! You hacked the mainframe!<br>
+                Good boy/girl! 🐾
+            </div>
+            <div class="easter-toast-hint">Press ESC to exit</div>
+        `;
+        document.body.appendChild(toast);
+
+        // Matrix Rain Configuration
+        const ctx = canvas.getContext('2d');
+        const matrixChars = 'アァカサタナハマヤャラワガザダバパイィキシチニヒミリヰギジヂビピウゥクスツヌフムユュルグズブヅプエェケセテネヘメレヱゲゼデベペオォコソトノホモヨョロヲゴゾドボポヴッン0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ@#$%^&*()';
+        let columns = [];
+        let drops = [];
+        const fontSize = 16;
+
+        // Initialize canvas dimensions and columns
+        function initMatrix() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+            columns = Math.floor(canvas.width / fontSize);
+            drops = Array(columns).fill(1);
+        }
+
+        // Draw Matrix Rain frame
+        function drawMatrixRain() {
+            // Semi-transparent black to create trail effect
+            ctx.fillStyle = 'rgba(10, 10, 15, 0.05)';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            // Neon green text
+            ctx.fillStyle = '#39ff14';
+            ctx.font = `${fontSize}px 'Share Tech Mono', monospace`;
+            ctx.shadowColor = '#39ff14';
+            ctx.shadowBlur = 10;
+
+            for (let i = 0; i < drops.length; i++) {
+                // Random character from matrix chars
+                const char = matrixChars[Math.floor(Math.random() * matrixChars.length)];
+                const x = i * fontSize;
+                const y = drops[i] * fontSize;
+
+                // Vary brightness for depth effect
+                const brightness = Math.random() > 0.1 ? 1 : 0.5;
+                ctx.fillStyle = brightness === 1 ? '#39ff14' : '#1a8f0a';
+
+                ctx.fillText(char, x, y);
+
+                // Reset drop to top randomly or when it reaches bottom
+                if (y > canvas.height && Math.random() > 0.975) {
+                    drops[i] = 0;
+                }
+                drops[i]++;
+            }
+        }
+
+        // Matrix animation loop
+        function animateMatrix() {
+            if (!easterEggActive) return;
+            drawMatrixRain();
+            animationId = requestAnimationFrame(animateMatrix);
+        }
+
+        // Activate Easter Egg
+        function activateEasterEgg() {
+            if (easterEggActive) return;
+            easterEggActive = true;
+
+            // Initialize and start Matrix Rain
+            initMatrix();
+            canvas.classList.add('active');
+            toast.classList.add('active');
+            animateMatrix();
+
+            // Auto-deactivate after 10 seconds
+            autoDeactivateTimer = setTimeout(() => {
+                deactivateEasterEgg();
+            }, 10000);
+
+            console.log('🐕 WOOF! Easter egg activated! Press ESC to exit.');
+        }
+
+        // Deactivate Easter Egg
+        function deactivateEasterEgg() {
+            if (!easterEggActive) return;
+
+            // Clear timers
+            if (autoDeactivateTimer) {
+                clearTimeout(autoDeactivateTimer);
+                autoDeactivateTimer = null;
+            }
+
+            // Fade out animation
+            canvas.classList.add('fade-out');
+            toast.classList.add('fade-out');
+
+            // Cancel animation and cleanup after fade
+            setTimeout(() => {
+                easterEggActive = false;
+                if (animationId) {
+                    cancelAnimationFrame(animationId);
+                    animationId = null;
+                }
+                canvas.classList.remove('active', 'fade-out');
+                toast.classList.remove('active', 'fade-out');
+
+                // Clear canvas
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+                console.log('🐾 Easter egg deactivated. Good dog!');
+            }, 500);
+        }
+
+        // Listen for Konami Code input
+        document.addEventListener('keydown', (e) => {
+            // ESC to deactivate
+            if (e.code === 'Escape' && easterEggActive) {
+                deactivateEasterEgg();
+                return;
+            }
+
+            // Track input sequence
+            inputSequence.push(e.code);
+
+            // Keep only the last N keys (length of Konami code)
+            if (inputSequence.length > KONAMI_CODE.length) {
+                inputSequence.shift();
+            }
+
+            // Check if sequence matches Konami code
+            if (inputSequence.length === KONAMI_CODE.length) {
+                const isKonamiCode = inputSequence.every((key, index) => key === KONAMI_CODE[index]);
+                if (isKonamiCode) {
+                    activateEasterEgg();
+                    inputSequence = []; // Reset sequence
+                }
+            }
+        });
+
+        // Handle window resize
+        window.addEventListener('resize', () => {
+            if (easterEggActive) {
+                initMatrix();
+            }
+        });
+    })();
 </script>
+
+<!-- 🎮 Old school gamers know the way... -->
 </body>
 </html>
