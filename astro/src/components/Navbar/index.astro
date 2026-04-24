@@ -1,0 +1,258 @@
+---
+// No imports needed
+---
+
+<nav id="navbar">
+    <div class="nav-inner">
+        <button
+            class="hamburger"
+            id="hamburger"
+            aria-label="Toggle navigation"
+            aria-expanded="false"
+        >
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+        <ul class="nav-links" id="nav-links">
+            <li><a href="/#hero" class="nav-link">Home</a></li>
+            <li><a href="/#about" class="nav-link">About</a></li>
+            <li><a href="/#experience" class="nav-link">Experience</a></li>
+            <li><a href="/#education" class="nav-link">Education</a></li>
+            <li><a href="/#skills" class="nav-link">Skills</a></li>
+            <li><a href="/#contact" class="nav-link">Contact</a></li>
+            <li><a href="/blog" class="nav-link">Blog</a></li>
+        </ul>
+    </div>
+</nav>
+
+<style>
+    #navbar {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 1000;
+        background: rgba(10, 10, 15, 0.85);
+        backdrop-filter: blur(16px);
+        -webkit-backdrop-filter: blur(16px);
+        border-bottom: 1px solid rgba(0, 229, 255, 0.15);
+    }
+
+    .nav-inner {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 2rem;
+        padding: 1rem 2rem;
+        max-width: 1200px;
+        margin: 0 auto;
+        position: relative;
+    }
+
+    /* ── Nav links list ──────────────────────────────── */
+    .nav-links {
+        display: flex;
+        list-style: none;
+        gap: 2rem;
+        margin: 0;
+        padding: 0;
+    }
+
+    /* ── Individual link ─────────────────────────────── */
+    .nav-link {
+        font-family: "Orbitron", sans-serif;
+        font-size: 0.75rem;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        color: #00e5ff;
+        text-decoration: none;
+        border: 1px solid transparent;
+        padding: 0.4rem 0.8rem;
+        border-radius: 4px;
+        transition:
+            border-color 0.3s ease,
+            box-shadow 0.3s ease,
+            text-shadow 0.3s ease,
+            background 0.3s ease;
+        white-space: nowrap;
+    }
+
+    .nav-link:hover,
+    .nav-link.active {
+        border-color: #00e5ff;
+        box-shadow:
+            0 0 12px rgba(0, 229, 255, 0.4),
+            inset 0 0 8px rgba(0, 229, 255, 0.05);
+        text-shadow: 0 0 8px rgba(0, 229, 255, 0.8);
+        background: rgba(0, 229, 255, 0.03);
+    }
+
+    /* ── Hamburger button ────────────────────────────── */
+    .hamburger {
+        display: none;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 5px;
+        background: transparent;
+        border: none;
+        cursor: pointer;
+        padding: 0.4rem;
+        position: absolute;
+        right: 1.25rem;
+        top: 50%;
+        transform: translateY(-50%);
+        z-index: 1001;
+    }
+
+    .hamburger span {
+        display: block;
+        width: 24px;
+        height: 2px;
+        background: #00e5ff;
+        border-radius: 2px;
+        box-shadow: 0 0 6px rgba(0, 229, 255, 0.5);
+        transition:
+            transform 0.3s ease,
+            opacity 0.3s ease,
+            scaleX 0.3s ease;
+        transform-origin: center;
+    }
+
+    /* Animate to X when active */
+    .hamburger.active span:nth-child(1) {
+        transform: translateY(7px) rotate(45deg);
+    }
+    .hamburger.active span:nth-child(2) {
+        opacity: 0;
+        transform: scaleX(0);
+    }
+    .hamburger.active span:nth-child(3) {
+        transform: translateY(-7px) rotate(-45deg);
+    }
+
+    /* ── Mobile breakpoint ───────────────────────────── */
+    @media (max-width: 600px) {
+        .nav-inner {
+            padding: 0.9rem 1.25rem;
+            justify-content: flex-start;
+            min-height: 54px;
+        }
+
+        .hamburger {
+            display: flex;
+        }
+
+        .nav-links {
+            display: none;
+            flex-direction: column;
+            gap: 0;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            background: rgba(10, 10, 15, 0.97);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border-bottom: 1px solid rgba(0, 229, 255, 0.15);
+            padding: 0.5rem 0 0.75rem;
+            z-index: 999;
+        }
+
+        .nav-links.open {
+            display: flex;
+        }
+
+        .nav-links li {
+            width: 100%;
+        }
+
+        .nav-link {
+            display: block;
+            width: 100%;
+            padding: 0.85rem 2rem;
+            border-radius: 0;
+            border: none;
+            border-bottom: 1px solid rgba(0, 229, 255, 0.06);
+            text-align: left;
+        }
+
+        /* Last item — remove bottom border */
+        .nav-links li:last-child .nav-link {
+            border-bottom: none;
+        }
+
+        .nav-link:hover,
+        .nav-link.active {
+            border-color: transparent;
+            border-bottom-color: rgba(0, 229, 255, 0.06);
+            background: rgba(0, 229, 255, 0.06);
+            box-shadow: none;
+        }
+    }
+</style>
+
+<script>
+    const hamburger = document.getElementById(
+        "hamburger",
+    ) as HTMLButtonElement | null;
+    const navLinksEl = document.getElementById(
+        "nav-links",
+    ) as HTMLUListElement | null;
+    const navLinks = document.querySelectorAll<HTMLAnchorElement>(".nav-link");
+
+    /* ── Hamburger toggle ──────────────────────────────────────────────────── */
+    hamburger?.addEventListener("click", () => {
+        const isOpen = navLinksEl?.classList.toggle("open") ?? false;
+        hamburger.classList.toggle("active", isOpen);
+        hamburger.setAttribute("aria-expanded", String(isOpen));
+    });
+
+    /* ── Close menu when a nav link is clicked ─────────────────────────────── */
+    navLinks.forEach((link) => {
+        link.addEventListener("click", () => {
+            hamburger?.classList.remove("active");
+            hamburger?.setAttribute("aria-expanded", "false");
+            navLinksEl?.classList.remove("open");
+        });
+    });
+
+    /* ── Active section highlight on scroll ────────────────────────────────── */
+    const sections = document.querySelectorAll<HTMLElement>("section[id]");
+
+    function updateActiveLink(): void {
+        const scrollY = window.scrollY + 90; // account for fixed navbar height
+
+        // If the user has scrolled to (or near) the bottom, activate the last section
+        const atBottom =
+            window.scrollY + window.innerHeight >=
+            document.documentElement.scrollHeight - 10;
+
+        let currentId = "";
+        if (atBottom && sections.length > 0) {
+            currentId = sections[sections.length - 1].id;
+        } else {
+            sections.forEach((section) => {
+                if (scrollY >= section.offsetTop) {
+                    currentId = section.id;
+                }
+            });
+        }
+
+        navLinks.forEach((link) => {
+            const href = link.getAttribute("href") ?? "";
+            const isActive = currentId !== "" && href.endsWith(`#${currentId}`);
+
+            link.classList.toggle("active", isActive);
+            // Drive border-color explicitly so the CSS :hover rule isn't needed
+            link.style.borderColor = isActive
+                ? "var(--color-neon-blue, #00e5ff)"
+                : "";
+        });
+    }
+
+    window.addEventListener("scroll", updateActiveLink, { passive: true });
+    // Run once on load so the correct link is highlighted from the start
+    updateActiveLink();
+</script>

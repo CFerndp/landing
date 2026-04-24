@@ -1,17 +1,41 @@
 ---
-
+import BaseLayout from "../layouts/BaseLayout/index.astro";
+import Navbar from "../components/Navbar/index.astro";
+import Particles from "../components/Particles/index.astro";
+import Footer from "../components/Footer/index.astro";
+import Hero from "./_partials/Hero/index.astro";
+import About from "./_partials/About/index.astro";
+import Experience from "./_partials/Experience/index.astro";
+import Education from "./_partials/Education/index.astro";
+import Skills from "./_partials/Skills/index.astro";
+import Contact from "./_partials/Contact/index.astro";
 ---
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="icon" href="/favicon.ico" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>Astro</h1>
-	</body>
-</html>
+<BaseLayout>
+    <Particles />
+    <Navbar />
+    <main>
+        <Hero />
+        <About />
+        <Experience />
+        <Education />
+        <Skills />
+        <Contact />
+    </main>
+    <Footer />
+</BaseLayout>
+
+<script>
+    const observer = new IntersectionObserver(
+        (entries) => {
+            entries.forEach((entry) => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add("visible");
+                }
+            });
+        },
+        { threshold: 0.1, rootMargin: "0px 0px -40px 0px" },
+    );
+
+    document.querySelectorAll(".reveal").forEach((el) => observer.observe(el));
+</script>

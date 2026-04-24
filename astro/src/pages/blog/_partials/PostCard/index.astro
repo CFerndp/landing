@@ -1,0 +1,157 @@
+---
+interface Props {
+  title: string;
+  description: string;
+  pubDate: Date;
+  tags: string[];
+  slug: string;
+  minutesRead?: number;
+  draft?: boolean;
+}
+
+const { title, description, pubDate, tags, slug, minutesRead } = Astro.props;
+
+const formattedDate = pubDate.toLocaleDateString('en-US', {
+  year: 'numeric',
+  month: 'long',
+  day: 'numeric',
+});
+---
+
+<a href={`/blog/${slug}`} class="post-card-link">
+  <article class="post-card">
+    <div class="top-accent"></div>
+    <div class="post-card-inner">
+      <div class="post-meta">
+        <time class="post-date" datetime={pubDate.toISOString()}>{formattedDate}</time>
+        {minutesRead && <span class="minutes-read">// {minutesRead} min read</span>}
+      </div>
+      <h2 class="post-title">{title}</h2>
+      <p class="post-description">{description}</p>
+      {
+        tags.length > 0 && (
+          <div class="post-tags">
+            {tags.map((tag) => (
+              <span class="post-tag">{tag}</span>
+            ))}
+          </div>
+        )
+      }
+    </div>
+  </article>
+</a>
+
+<style>
+  .post-card-link {
+    text-decoration: none;
+    display: block;
+    height: 100%;
+  }
+
+  .post-card {
+    background: var(--card-bg);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    border-radius: 8px;
+    overflow: hidden;
+    transition:
+      transform 0.3s ease,
+      border-color 0.3s ease,
+      box-shadow 0.3s ease;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .post-card:hover {
+    transform: translateY(-4px);
+    border-color: rgba(0, 229, 255, 0.4);
+    box-shadow:
+      0 0 20px rgba(0, 229, 255, 0.15),
+      0 0 40px rgba(0, 229, 255, 0.06),
+      0 8px 32px rgba(0, 0, 0, 0.4);
+  }
+
+  .top-accent {
+    height: 2px;
+    background: linear-gradient(90deg, #00e5ff, #bf5fff);
+    flex-shrink: 0;
+  }
+
+  .post-card-inner {
+    padding: 1.8rem;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+  }
+
+  .post-meta {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+    margin-bottom: 0.9rem;
+  }
+
+  .post-date {
+    font-family: 'Share Tech Mono', monospace;
+    color: #39ff14;
+    font-size: 0.78rem;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+  }
+
+  .minutes-read {
+    font-family: 'Share Tech Mono', monospace;
+    color: #555;
+    font-size: 0.75rem;
+    letter-spacing: 1px;
+  }
+
+  .post-title {
+    font-family: 'Orbitron', sans-serif;
+    color: #fff;
+    font-size: clamp(0.95rem, 2.2vw, 1.2rem);
+    font-weight: 700;
+    line-height: 1.35;
+    margin-bottom: 0.9rem;
+    letter-spacing: 1px;
+    transition: color 0.3s ease;
+  }
+
+  .post-card:hover .post-title {
+    color: #00e5ff;
+    text-shadow: 0 0 12px rgba(0, 229, 255, 0.4);
+  }
+
+  .post-description {
+    color: #bbb;
+    font-size: 0.95rem;
+    line-height: 1.7;
+    margin-bottom: 1.4rem;
+    flex: 1;
+  }
+
+  .post-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-top: auto;
+  }
+
+  .post-tag {
+    font-size: 0.75rem;
+    padding: 0.25rem 0.7rem;
+    border-radius: 4px;
+    background: rgba(0, 229, 255, 0.06);
+    border: 1px solid rgba(0, 229, 255, 0.15);
+    color: #00e5ff;
+    font-family: 'Share Tech Mono', monospace;
+    letter-spacing: 0.5px;
+    transition: background 0.3s ease, border-color 0.3s ease;
+  }
+
+  .post-card:hover .post-tag {
+    background: rgba(0, 229, 255, 0.1);
+    border-color: rgba(0, 229, 255, 0.3);
+  }
+</style>
