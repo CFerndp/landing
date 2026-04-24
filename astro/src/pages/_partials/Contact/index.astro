@@ -1,179 +1,36 @@
 ---
-import { contact } from '../../../data/contact';
+import { contact } from "../../../data/contact";
+import "./styles.css";
 ---
 
 <section id="contact">
-  <h2 class="section-title title-blue reveal">Let's Connect<span class="line"></span></h2>
+    <h2 class="section-title title-blue reveal">
+        Let's Connect<span class="line"></span>
+    </h2>
 
-  <p class="contact-subtitle reveal">
-    Open to new opportunities, collaborations, and interesting conversations. Don't hesitate to reach out!
-  </p>
+    <p class="contact-subtitle reveal">
+        Open to new opportunities, collaborations, and interesting
+        conversations. Don't hesitate to reach out!
+    </p>
 
-  <div class="contact-grid">
-    {contact.map((item, index) => (
-      <a
-        href={item.value}
-        class={`contact-card reveal stagger-${(index % 3) + 1} ${item.iconColor}-card`}
-        target={item.isExternal ? '_blank' : undefined}
-        rel={item.isExternal ? 'noopener noreferrer' : undefined}
-      >
-        <div class={`contact-icon ${item.iconColor}`}>
-          {item.icon}
-        </div>
-        <div class="contact-info">
-          <div class="contact-label">{item.label}</div>
-          <div class="contact-value">{item.displayValue}</div>
-        </div>
-      </a>
-    ))}
-  </div>
+    <div class="contact-grid">
+        {
+            contact.map((item, index) => (
+                <a
+                    href={item.value}
+                    class={`contact-card reveal stagger-${(index % 3) + 1} ${item.iconColor}-card`}
+                    target={item.isExternal ? "_blank" : undefined}
+                    rel={item.isExternal ? "noopener noreferrer" : undefined}
+                >
+                    <div class={`contact-icon ${item.iconColor}`}>
+                        {item.icon}
+                    </div>
+                    <div class="contact-info">
+                        <div class="contact-label">{item.label}</div>
+                        <div class="contact-value">{item.displayValue}</div>
+                    </div>
+                </a>
+            ))
+        }
+    </div>
 </section>
-
-<style>
-  .contact-subtitle {
-    text-align: center;
-    color: #888;
-    margin-bottom: 3rem;
-    font-size: 1rem;
-    line-height: 1.8;
-    max-width: 600px;
-    margin-left: auto;
-    margin-right: auto;
-  }
-
-  .contact-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-    gap: 1.5rem;
-    max-width: 800px;
-    margin: 0 auto;
-  }
-
-  .contact-card {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    gap: 1.2rem;
-    background: var(--card-bg);
-    border-radius: 8px;
-    padding: 1.5rem;
-    text-decoration: none;
-    border: 1px solid rgba(255, 255, 255, 0.06);
-    position: relative;
-    overflow: hidden;
-    transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
-  }
-
-  /* Bottom line that scales in on hover */
-  .contact-card::before {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    height: 2px;
-    transform: scaleX(0);
-    transform-origin: left center;
-    transition: transform 0.35s ease;
-  }
-
-  .contact-card.blue-card::before  { background: #00e5ff; box-shadow: 0 0 8px #00e5ff; }
-  .contact-card.green-card::before { background: #39ff14; box-shadow: 0 0 8px #39ff14; }
-  .contact-card.pink-card::before  { background: #ff2d95; box-shadow: 0 0 8px #ff2d95; }
-
-  .contact-card:hover::before {
-    transform: scaleX(1);
-  }
-
-  .contact-card:hover {
-    transform: translateY(-4px);
-  }
-
-  .contact-card.blue-card:hover {
-    border-color: rgba(0, 229, 255, 0.3);
-    box-shadow: 0 8px 30px rgba(0, 229, 255, 0.15);
-  }
-
-  .contact-card.green-card:hover {
-    border-color: rgba(57, 255, 20, 0.3);
-    box-shadow: 0 8px 30px rgba(57, 255, 20, 0.15);
-  }
-
-  .contact-card.pink-card:hover {
-    border-color: rgba(255, 45, 149, 0.3);
-    box-shadow: 0 8px 30px rgba(255, 45, 149, 0.15);
-  }
-
-  /* Icon box */
-  .contact-icon {
-    flex-shrink: 0;
-    width: 42px;
-    height: 42px;
-    border-radius: 8px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 1.1rem;
-    font-family: 'Orbitron', sans-serif;
-    font-weight: 700;
-    transition: box-shadow 0.3s ease;
-  }
-
-  .contact-icon.blue {
-    background: rgba(0, 229, 255, 0.1);
-    color: #00e5ff;
-    border: 1px solid rgba(0, 229, 255, 0.2);
-  }
-
-  .contact-icon.green {
-    background: rgba(57, 255, 20, 0.1);
-    color: #39ff14;
-    border: 1px solid rgba(57, 255, 20, 0.2);
-  }
-
-  .contact-icon.pink {
-    background: rgba(255, 45, 149, 0.1);
-    color: #ff2d95;
-    border: 1px solid rgba(255, 45, 149, 0.2);
-  }
-
-  .contact-card:hover .contact-icon.blue  { box-shadow: 0 0 16px rgba(0, 229, 255, 0.4); }
-  .contact-card:hover .contact-icon.green { box-shadow: 0 0 16px rgba(57, 255, 20, 0.4); }
-  .contact-card:hover .contact-icon.pink  { box-shadow: 0 0 16px rgba(255, 45, 149, 0.4); }
-
-  /* Text */
-  .contact-info {
-    display: flex;
-    flex-direction: column;
-    gap: 0.3rem;
-    min-width: 0;
-  }
-
-  .contact-label {
-    font-family: 'Share Tech Mono', monospace;
-    font-size: 0.7rem;
-    color: #666;
-    text-transform: uppercase;
-    letter-spacing: 2px;
-  }
-
-  .contact-value {
-    color: #ddd;
-    font-size: 0.95rem;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    transition: color 0.3s ease;
-  }
-
-  .contact-card.blue-card:hover  .contact-value { color: #00e5ff; }
-  .contact-card.green-card:hover .contact-value { color: #39ff14; }
-  .contact-card.pink-card:hover  .contact-value { color: #ff2d95; }
-
-  /* Responsive */
-  @media (max-width: 400px) {
-    .contact-grid {
-      grid-template-columns: 1fr;
-    }
-  }
-</style>

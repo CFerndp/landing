@@ -1,0 +1,11 @@
+footer {
+  position: relative;
+  z-index: 1;
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 0.75rem;
+  color: #555;
+  letter-spacing: 2px;
+  text-align: center;
+  padding: 2rem;
+}

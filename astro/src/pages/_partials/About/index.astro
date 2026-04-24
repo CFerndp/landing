@@ -1,157 +1,46 @@
 ---
-import { profile } from '../../../data/profile';
+import { profile } from "../../../data/profile";
+import "./styles.css";
 ---
 
 <section id="about">
-  <h2 class="section-title title-blue reveal">
-    About Me<span class="line"></span>
-  </h2>
+    <h2 class="section-title title-blue reveal">
+        About Me<span class="line"></span>
+    </h2>
 
-  <div class="about-content reveal">
-    <!-- Left: Bio -->
-    <div class="about-text">
-      {profile.bio.map((paragraph) => (
-        <p class="bio-paragraph">{paragraph}</p>
-      ))}
-    </div>
-
-    <!-- Right: Details card -->
-    <div class="about-details">
-      {profile.details.map((detail) => (
-        <div class="about-detail-item">
-          <span class="about-detail-label font-mono">{detail.label}</span>
-          <span class="about-detail-value">{detail.value}</span>
+    <div class="about-content reveal">
+        <!-- Left: Bio -->
+        <div class="about-text">
+            {
+                profile.bio.map((paragraph) => (
+                    <p class="bio-paragraph">{paragraph}</p>
+                ))
+            }
         </div>
-      ))}
 
-      <div class="about-detail-item interests-section">
-        <span class="about-detail-label font-mono">INTERESTS</span>
-        <div class="interests-list">
-          {profile.interests.map((interest) => (
-            <span class="interest-tag">{interest}</span>
-          ))}
+        <!-- Right: Details card -->
+        <div class="about-details">
+            {
+                profile.details.map((detail) => (
+                    <div class="about-detail-item">
+                        <span class="about-detail-label font-mono">
+                            {detail.label}
+                        </span>
+                        <span class="about-detail-value">{detail.value}</span>
+                    </div>
+                ))
+            }
+
+            <div class="about-detail-item interests-section">
+                <span class="about-detail-label font-mono">INTERESTS</span>
+                <div class="interests-list">
+                    {
+                        profile.interests.map((interest) => (
+                            <span class="interest-tag">{interest}</span>
+                        ))
+                    }
+                </div>
+            </div>
         </div>
-      </div>
     </div>
-  </div>
 </section>
-
-<style>
-  .about-content {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 3rem;
-    align-items: start;
-  }
-
-  /* ── BIO ─────────────────────────────────────────── */
-  .about-text {
-    display: flex;
-    flex-direction: column;
-    gap: 1.2rem;
-  }
-
-  .bio-paragraph {
-    color: #bbb;
-    line-height: 1.8;
-    font-size: 1rem;
-  }
-
-  /* ── DETAILS CARD ────────────────────────────────── */
-  .about-details {
-    background: var(--card-bg);
-    border: 1px solid rgba(0, 229, 255, 0.1);
-    border-radius: 8px;
-    padding: 2rem;
-    backdrop-filter: blur(10px);
-    display: flex;
-    flex-direction: column;
-    gap: 0;
-  }
-
-  .about-detail-item {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    gap: 1rem;
-    padding: 0.75rem 0;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-  }
-
-  .about-detail-item:last-child {
-    border-bottom: none;
-    flex-direction: column;
-    gap: 0.8rem;
-  }
-
-  .about-detail-label {
-    font-size: 0.8rem;
-    color: #00e5ff;
-    text-transform: uppercase;
-    letter-spacing: 2px;
-    white-space: nowrap;
-    flex-shrink: 0;
-  }
-
-  .about-detail-value {
-    color: #ccc;
-    font-size: 0.95rem;
-    text-align: right;
-  }
-
-  /* ── INTERESTS ───────────────────────────────────── */
-  .interests-section {
-    padding-top: 0.75rem;
-  }
-
-  .interests-list {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.5rem;
-  }
-
-  .interest-tag {
-    border: 1px solid rgba(191, 95, 255, 0.3);
-    color: #bf5fff;
-    border-radius: 20px;
-    padding: 0.3rem 0.85rem;
-    font-size: 0.8rem;
-    cursor: default;
-    transition: all 0.3s ease;
-    white-space: nowrap;
-  }
-
-  .interest-tag:hover {
-    background: rgba(191, 95, 255, 0.1);
-    border-color: rgba(191, 95, 255, 0.6);
-    box-shadow: 0 0 12px rgba(191, 95, 255, 0.35);
-    text-shadow: 0 0 8px rgba(191, 95, 255, 0.6);
-  }
-
-  /* ── RESPONSIVE ──────────────────────────────────── */
-  @media (max-width: 768px) {
-    .about-content {
-      grid-template-columns: 1fr;
-      gap: 2rem;
-    }
-  }
-
-  @media (max-width: 600px) {
-    .about-content {
-      gap: 2rem;
-    }
-
-    .about-details {
-      padding: 1.5rem;
-    }
-
-    .about-detail-item {
-      flex-direction: column;
-      gap: 0.3rem;
-    }
-
-    .about-detail-value {
-      text-align: left;
-    }
-  }
-</style>

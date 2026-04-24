@@ -1,170 +1,177 @@
 ---
-import '../../styles/global.css';
+import "../../styles/global.css";
 
 interface Props {
-  title?: string;
-  description?: string;
+    title?: string;
+    description?: string;
 }
 
 const {
-  title = 'Cristian Fernandez — Software Developer',
-  description = 'Senior Software Developer & Associate Professor based in Madrid, Spain.',
+    title = "Cristian Fernandez — Software Developer",
+    description = "Senior Software Developer & Associate Professor based in Madrid, Spain.",
 } = Astro.props;
 ---
 
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content={description} />
-    <title>{title}</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&family=Rajdhani:wght@300;400;500;600;700&family=Share+Tech+Mono&display=swap"
-      rel="stylesheet"
-    />
-  </head>
-  <body class="bg-dark-bg text-[#e0e0e8] font-rajdhani overflow-x-hidden leading-relaxed">
-    <slot />
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta name="description" content={description} />
+        <title>{title}</title>
+        <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&family=Rajdhani:wght@300;400;500;600;700&family=Share+Tech+Mono&display=swap"
+            rel="stylesheet"
+        />
+    </head>
+    <body
+        class="bg-dark-bg text-[#e0e0e8] font-rajdhani overflow-x-hidden leading-relaxed"
+    >
+        <slot />
 
-    <script>
-      // ── Console hint ─────────────────────────────────────────────────────────
-      console.log('🕹️ Hint: Try the legendary code...');
+        <script>
+            // ── Console hint ─────────────────────────────────────────────────────────
+            console.log("🕹️ Hint: Try the legendary code...");
 
-      // ── Konami sequence ──────────────────────────────────────────────────────
-      const KONAMI_SEQUENCE: string[] = [
-        'ArrowUp',
-        'ArrowUp',
-        'ArrowDown',
-        'ArrowDown',
-        'ArrowLeft',
-        'ArrowRight',
-        'ArrowLeft',
-        'ArrowRight',
-        'KeyB',
-        'KeyA',
-      ];
+            // ── Konami sequence ──────────────────────────────────────────────────────
+            const KONAMI_SEQUENCE: string[] = [
+                "ArrowUp",
+                "ArrowUp",
+                "ArrowDown",
+                "ArrowDown",
+                "ArrowLeft",
+                "ArrowRight",
+                "ArrowLeft",
+                "ArrowRight",
+                "KeyB",
+                "KeyA",
+            ];
 
-      let konamiIndex = 0;
-      let matrixActive = false;
-      let matrixTimer: ReturnType<typeof setTimeout> | null = null;
-      let animFrameId: number | null = null;
+            let konamiIndex = 0;
+            let matrixActive = false;
+            let matrixTimer: ReturnType<typeof setTimeout> | null = null;
+            let animFrameId: number | null = null;
 
-      // ── Build DOM elements ───────────────────────────────────────────────────
-      const canvas = document.createElement('canvas');
-      canvas.id = 'matrix-canvas';
-      document.body.appendChild(canvas);
+            // ── Build DOM elements ───────────────────────────────────────────────────
+            const canvas = document.createElement("canvas");
+            canvas.id = "matrix-canvas";
+            document.body.appendChild(canvas);
 
-      const toast = document.createElement('div');
-      toast.className = 'easter-toast';
-      toast.innerHTML = `
+            const toast = document.createElement("div");
+            toast.className = "easter-toast";
+            toast.innerHTML = `
         <div class="easter-toast-text">🐕 WOOF! You hacked the mainframe!<br>Good boy/girl! 🐾</div>
         <div class="easter-toast-hint">Press ESC to exit</div>
       `;
-      document.body.appendChild(toast);
+            document.body.appendChild(toast);
 
-      // ── Matrix rain ──────────────────────────────────────────────────────────
-      const ctx = canvas.getContext('2d') as CanvasRenderingContext2D;
+            // ── Matrix rain ──────────────────────────────────────────────────────────
+            const ctx = canvas.getContext("2d") as CanvasRenderingContext2D;
 
-      const CHARS =
-        'アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワヲン' +
-        'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+            const CHARS =
+                "アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワヲン" +
+                "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
 
-      let drops: number[] = [];
+            let drops: number[] = [];
 
-      function resizeCanvas(): void {
-        canvas.width  = window.innerWidth;
-        canvas.height = window.innerHeight;
-        const cols = Math.floor(canvas.width / 16);
-        drops = Array.from({ length: cols }, () => Math.random() * -50);
-      }
+            function resizeCanvas(): void {
+                canvas.width = window.innerWidth;
+                canvas.height = window.innerHeight;
+                const cols = Math.floor(canvas.width / 16);
+                drops = Array.from({ length: cols }, () => Math.random() * -50);
+            }
 
-      function drawMatrix(): void {
-        ctx.fillStyle = 'rgba(10, 10, 15, 0.05)';
-        ctx.fillRect(0, 0, canvas.width, canvas.height);
+            function drawMatrix(): void {
+                ctx.fillStyle = "rgba(10, 10, 15, 0.05)";
+                ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-        ctx.fillStyle = '#39ff14';
-        ctx.font = '14px "Share Tech Mono", monospace';
+                ctx.fillStyle = "#39ff14";
+                ctx.font = '14px "Share Tech Mono", monospace';
 
-        for (let i = 0; i < drops.length; i++) {
-          const char = CHARS[Math.floor(Math.random() * CHARS.length)];
-          ctx.fillText(char, i * 16, drops[i] * 16);
+                for (let i = 0; i < drops.length; i++) {
+                    const char =
+                        CHARS[Math.floor(Math.random() * CHARS.length)];
+                    ctx.fillText(char, i * 16, drops[i] * 16);
 
-          if (drops[i] * 16 > canvas.height && Math.random() > 0.975) {
-            drops[i] = 0;
-          }
-          drops[i]++;
-        }
+                    if (
+                        drops[i] * 16 > canvas.height &&
+                        Math.random() > 0.975
+                    ) {
+                        drops[i] = 0;
+                    }
+                    drops[i]++;
+                }
 
-        if (matrixActive) {
-          animFrameId = requestAnimationFrame(drawMatrix);
-        }
-      }
+                if (matrixActive) {
+                    animFrameId = requestAnimationFrame(drawMatrix);
+                }
+            }
 
-      // ── Activate / deactivate ────────────────────────────────────────────────
-      function activateEasterEgg(): void {
-        if (matrixActive) return;
-        matrixActive = true;
+            // ── Activate / deactivate ────────────────────────────────────────────────
+            function activateEasterEgg(): void {
+                if (matrixActive) return;
+                matrixActive = true;
 
-        resizeCanvas();
-        canvas.classList.add('active');
-        toast.classList.add('active');
+                resizeCanvas();
+                canvas.classList.add("active");
+                toast.classList.add("active");
 
-        animFrameId = requestAnimationFrame(drawMatrix);
-        matrixTimer = setTimeout(deactivateEasterEgg, 10_000);
-      }
+                animFrameId = requestAnimationFrame(drawMatrix);
+                matrixTimer = setTimeout(deactivateEasterEgg, 10_000);
+            }
 
-      function deactivateEasterEgg(): void {
-        if (!matrixActive) return;
-        matrixActive = false;
+            function deactivateEasterEgg(): void {
+                if (!matrixActive) return;
+                matrixActive = false;
 
-        if (matrixTimer !== null) {
-          clearTimeout(matrixTimer);
-          matrixTimer = null;
-        }
+                if (matrixTimer !== null) {
+                    clearTimeout(matrixTimer);
+                    matrixTimer = null;
+                }
 
-        if (animFrameId !== null) {
-          cancelAnimationFrame(animFrameId);
-          animFrameId = null;
-        }
+                if (animFrameId !== null) {
+                    cancelAnimationFrame(animFrameId);
+                    animFrameId = null;
+                }
 
-        canvas.classList.remove('active');
-        canvas.classList.add('fade-out');
-        toast.classList.remove('active');
-        toast.classList.add('fade-out');
+                canvas.classList.remove("active");
+                canvas.classList.add("fade-out");
+                toast.classList.remove("active");
+                toast.classList.add("fade-out");
 
-        setTimeout(() => {
-          canvas.classList.remove('fade-out');
-          toast.classList.remove('fade-out');
-          ctx.clearRect(0, 0, canvas.width, canvas.height);
-        }, 500);
-      }
+                setTimeout(() => {
+                    canvas.classList.remove("fade-out");
+                    toast.classList.remove("fade-out");
+                    ctx.clearRect(0, 0, canvas.width, canvas.height);
+                }, 500);
+            }
 
-      // ── Key listener ─────────────────────────────────────────────────────────
-      document.addEventListener('keydown', (e: KeyboardEvent) => {
-        if (e.code === 'Escape' && matrixActive) {
-          deactivateEasterEgg();
-          konamiIndex = 0;
-          return;
-        }
+            // ── Key listener ─────────────────────────────────────────────────────────
+            document.addEventListener("keydown", (e: KeyboardEvent) => {
+                if (e.code === "Escape" && matrixActive) {
+                    deactivateEasterEgg();
+                    konamiIndex = 0;
+                    return;
+                }
 
-        if (e.code === KONAMI_SEQUENCE[konamiIndex]) {
-          konamiIndex++;
-          if (konamiIndex === KONAMI_SEQUENCE.length) {
-            konamiIndex = 0;
-            activateEasterEgg();
-          }
-        } else {
-          // If the pressed key matches the first in sequence restart from 1, else 0
-          konamiIndex = e.code === KONAMI_SEQUENCE[0] ? 1 : 0;
-        }
-      });
+                if (e.code === KONAMI_SEQUENCE[konamiIndex]) {
+                    konamiIndex++;
+                    if (konamiIndex === KONAMI_SEQUENCE.length) {
+                        konamiIndex = 0;
+                        activateEasterEgg();
+                    }
+                } else {
+                    // If the pressed key matches the first in sequence restart from 1, else 0
+                    konamiIndex = e.code === KONAMI_SEQUENCE[0] ? 1 : 0;
+                }
+            });
 
-      window.addEventListener('resize', () => {
-        if (matrixActive) resizeCanvas();
-      });
-    </script>
-  </body>
+            window.addEventListener("resize", () => {
+                if (matrixActive) resizeCanvas();
+            });
+        </script>
+    </body>
 </html>
