@@ -12,18 +12,19 @@ export const experience: ExperienceItem[] = [
     company: "Comillas University",
     items: [
       'Teaching "Development of Applications and Services" — HTML, CSS, JS, React, Django REST',
+      'Teaching "Telematic Applications Programming" — HTML, CSS, JS, Spring Boot',
       "Guiding students through Scrum methodologies and Git version control",
     ],
   },
   {
-    date: "2024 — Present",
-    role: "Senior Frontend Developer",
+    date: "2024 — 2026",
+    role: "Senior Fullstack Developer",
     company: "Alira Health",
     items: [
       "Led mobile app development with React Native, optimizing performance and UX",
       "Built scalable web apps with React (Vite) & Next.js",
       "Implemented TDD approach, enhancing code reliability in production",
-      "Tech lead for frontend: translated complex business requirements into efficient solutions",
+      "Implement BE logic in Django and Django ninja for data processing and API development",
     ],
   },
   {
