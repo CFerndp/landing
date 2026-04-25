@@ -1,31 +1,43 @@
-# cferndp Landing
+# Astro Starter Kit: Minimal
 
-Static marketing site for cferndp.com served by nginx inside Docker. The container no longer publishes host ports directly; instead it exposes port 8080 on the shared Docker network `caddy_net`, where the external Caddy reverse proxy terminates TLS and routes traffic.
-
-## Prerequisites
-
-1. Caddy (running elsewhere) configured to proxy `cferndp.com` to `landing-app:8080` on the `caddy_net` network. Example snippet:
-   ```caddyfile
-   cferndp.com {
-       reverse_proxy landing-app:8080
-   }
-   ```
-2. Docker network (create once):
-   ```bash
-   docker network create caddy_net
-   ```
-
-## Run locally
-
-```bash
-# from repo root
-docker-compose up -d
+```sh
+npm create astro@latest -- --template minimal
 ```
 
-The container joins `caddy_net`, exposes port 8080, and serves the contents of `html/`. Caddy handles HTTPS and any future subdomains; adding another app only requires joining that network and adding a proxy block in the Caddyfile.
+> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
 
-## Deployment notes
+## 🚀 Project Structure
 
-- Volume mounts are read-only to prevent accidental writes inside the container.
-- If you update the landing assets, re-run `docker-compose up -d --force-recreate` to refresh nginx.
-- Tear down with `docker-compose down` (container leaves `caddy_net` but the external network persists for other services).
+Inside of your Astro project, you'll see the following folders and files:
+
+```text
+/
+├── public/
+├── src/
+│   └── pages/
+│       └── index.astro
+└── package.json
+```
+
+Astro looks for `.astro` or `.md` files in the `src/pages/` directory. Each page is exposed as a route based on its file name.
+
+There's nothing special about `src/components/`, but that's where we like to put any Astro/React/Vue/Svelte/Preact components.
+
+Any static assets, like images, can be placed in the `public/` directory.
+
+## 🧞 Commands
+
+All commands are run from the root of the project, from a terminal:
+
+| Command                   | Action                                           |
+| :------------------------ | :----------------------------------------------- |
+| `npm install`             | Installs dependencies                            |
+| `npm run dev`             | Starts local dev server at `localhost:4321`      |
+| `npm run build`           | Build your production site to `./dist/`          |
+| `npm run preview`         | Preview your build locally, before deploying     |
+| `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
+| `npm run astro -- --help` | Get help using the Astro CLI                     |
+
+## 👀 Want to learn more?
+
+Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
