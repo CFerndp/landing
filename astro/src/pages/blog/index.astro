@@ -2,7 +2,7 @@
 import BaseLayout from "../../layouts/BaseLayout/index.astro";
 import Navbar from "../../components/organisms/Navbar/index.astro";
 import Footer from "../../components/organisms/Footer/index.astro";
-import Particles from "../../components/organisms/Particles/index.astro";
+
 import SectionTitle from "../../components/atoms/SectionTitle/index.astro";
 import PostCard from "../../components/molecules/PostCard/index.astro";
 import { getCollection } from "astro:content";
@@ -17,7 +17,6 @@ const posts = allPosts.sort(
     title="Blog — Cristian Fernandez"
     description="Technical articles on React, TypeScript, architecture and software development."
 >
-    <Particles />
     <Navbar />
 
     <main>

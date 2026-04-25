@@ -1,5 +1,6 @@
 ---
 import "../../styles/global.css";
+import Particles from "../../components/organisms/Particles/index.astro";
 
 interface Props {
     title?: string;
@@ -30,6 +31,7 @@ const {
     <body
         class="bg-dark-bg text-[#e0e0e8] font-rajdhani overflow-x-hidden leading-relaxed"
     >
+        <Particles />
         <slot />
 
         <script>
