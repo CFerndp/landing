@@ -422,10 +422,17 @@ section {
     border-radius: 4px !important;
 }
 
+.prose p {
+    margin-bottom: 1.5rem;
+}
+
 .prose pre {
     background: rgba(15, 15, 25, 0.9) !important;
     border: 1px solid rgba(0, 229, 255, 0.15) !important;
     border-radius: 8px !important;
+    padding: 1.5rem !important;
+    overflow-x: auto !important;
+    margin-bottom: 1.8rem !important;
 }
 
 .prose pre code {
