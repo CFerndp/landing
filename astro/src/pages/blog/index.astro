@@ -2,9 +2,13 @@
 import BaseLayout from "../../layouts/BaseLayout/index.astro";
 import Navbar from "../../components/organisms/Navbar/index.astro";
 import Footer from "../../components/organisms/Footer/index.astro";
-
 import SectionTitle from "../../components/atoms/SectionTitle/index.astro";
 import PostCard from "../../components/molecules/PostCard/index.astro";
+import {
+    CATEGORIES,
+    DEFAULT_CATEGORY,
+    type Category,
+} from "../../data/categories";
 import { getCollection } from "astro:content";
 
 const allPosts = await getCollection("blog", ({ data }) => !data.draft);
@@ -25,6 +29,31 @@ const posts = allPosts.sort(
                 // Blog
             </SectionTitle>
 
+            <div
+                class="filter-bar"
+                role="group"
+                aria-label="Filter by category"
+            >
+                <button
+                    class="filter-btn active"
+                    data-filter="all"
+                    aria-pressed="true"
+                >
+                    All
+                </button>
+                {
+                    CATEGORIES.map((cat) => (
+                        <button
+                            class="filter-btn"
+                            data-filter={cat.value}
+                            aria-pressed="false"
+                        >
+                            {cat.label}
+                        </button>
+                    ))
+                }
+            </div>
+
             {
                 posts.length === 0 ? (
                     <div class="empty-state">
@@ -33,26 +62,77 @@ const posts = allPosts.sort(
                         </p>
                     </div>
                 ) : (
-                    <div class="posts-grid">
+                    <div class="posts-grid" id="posts-grid">
                         {posts.map((post) => (
-                            <PostCard
-                                title={post.data.title}
-                                description={post.data.description}
-                                pubDate={post.data.pubDate}
-                                tags={post.data.tags}
-                                slug={post.id}
-                                minutesRead={post.data.minutesRead}
-                                draft={post.data.draft}
-                            />
+                            <div
+                                class="post-item"
+                                data-category={
+                                    post.data.category ?? DEFAULT_CATEGORY
+                                }
+                            >
+                                <PostCard
+                                    title={post.data.title}
+                                    description={post.data.description}
+                                    pubDate={post.data.pubDate}
+                                    tags={post.data.tags}
+                                    slug={post.id}
+                                    category={
+                                        (post.data.category ??
+                                            DEFAULT_CATEGORY) as Category
+                                    }
+                                    minutesRead={post.data.minutesRead}
+                                    draft={post.data.draft}
+                                />
+                            </div>
                         ))}
                     </div>
                 )
             }
+
+            <p class="no-results font-mono" id="no-results" aria-live="polite">
+                No posts in this category yet.
+            </p>
         </section>
     </main>
 
     <Footer />
 </BaseLayout>
+
+<script>
+    const buttons = document.querySelectorAll<HTMLButtonElement>(".filter-btn");
+    const items = document.querySelectorAll<HTMLElement>(".post-item");
+    const noResults = document.getElementById("no-results");
+
+    function applyFilter(category: string): void {
+        let visible = 0;
+
+        items.forEach((item) => {
+            const match =
+                category === "all" || item.dataset.category === category;
+            item.style.display = match ? "" : "none";
+            if (match) visible++;
+        });
+
+        if (noResults) {
+            noResults.style.display = visible === 0 ? "block" : "none";
+        }
+
+        buttons.forEach((btn) => {
+            const isActive = btn.dataset.filter === category;
+            btn.classList.toggle("active", isActive);
+            btn.setAttribute("aria-pressed", String(isActive));
+        });
+    }
+
+    buttons.forEach((btn) => {
+        btn.addEventListener("click", () => {
+            applyFilter(btn.dataset.filter ?? "all");
+        });
+    });
+
+    // Hide no-results on initial load
+    if (noResults) noResults.style.display = "none";
+</script>
 
 <style>
     .blog-section {
@@ -63,28 +143,83 @@ const posts = allPosts.sort(
         padding: 6rem 2rem 4rem;
     }
 
-    .empty-state {
-        text-align: center;
-        padding: 5rem 0;
+    /* ── Filter bar ─────────────────────────────────────────────────────── */
+    .filter-bar {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.75rem;
+        justify-content: center;
+        margin-bottom: 3rem;
     }
 
-    .empty-message {
-        color: #39ff14;
-        font-size: 1rem;
+    .filter-btn {
+        font-family: "Orbitron", sans-serif;
+        font-size: 0.7rem;
         letter-spacing: 2px;
-        text-shadow: 0 0 10px rgba(57, 255, 20, 0.4);
+        text-transform: uppercase;
+        padding: 0.5rem 1.25rem;
+        border-radius: 4px;
+        border: 1px solid rgba(0, 229, 255, 0.25);
+        background: transparent;
+        color: #888;
+        cursor: pointer;
+        transition:
+            color 0.25s ease,
+            border-color 0.25s ease,
+            box-shadow 0.25s ease,
+            background 0.25s ease;
     }
 
+    .filter-btn:hover {
+        color: #00e5ff;
+        border-color: rgba(0, 229, 255, 0.5);
+        background: rgba(0, 229, 255, 0.04);
+    }
+
+    .filter-btn.active {
+        color: #00e5ff;
+        border-color: #00e5ff;
+        background: rgba(0, 229, 255, 0.08);
+        box-shadow:
+            0 0 12px rgba(0, 229, 255, 0.3),
+            inset 0 0 8px rgba(0, 229, 255, 0.05);
+        text-shadow: 0 0 8px rgba(0, 229, 255, 0.6);
+    }
+
+    /* ── Posts grid ─────────────────────────────────────────────────────── */
     .posts-grid {
         display: grid;
         grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
         gap: 2rem;
     }
 
+    .post-item {
+        height: 100%;
+    }
+
+    /* ── Empty / no-results states ──────────────────────────────────────── */
+    .empty-state {
+        text-align: center;
+        padding: 5rem 0;
+    }
+
+    .empty-message,
+    .no-results {
+        display: none;
+        text-align: center;
+        padding: 4rem 0;
+        color: #39ff14;
+        font-size: 1rem;
+        letter-spacing: 2px;
+        text-shadow: 0 0 10px rgba(57, 255, 20, 0.4);
+    }
+
+    /* ── Responsive ─────────────────────────────────────────────────────── */
     @media (max-width: 768px) {
         .blog-section {
             padding: 5rem 1.2rem 3rem;
         }
+
         .posts-grid {
             grid-template-columns: 1fr;
         }
@@ -93,6 +228,11 @@ const posts = allPosts.sort(
     @media (max-width: 400px) {
         .blog-section {
             padding: 4rem 1rem 2.5rem;
+        }
+
+        .filter-btn {
+            font-size: 0.65rem;
+            padding: 0.45rem 1rem;
         }
     }
 </style>

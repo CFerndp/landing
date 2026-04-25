@@ -3,6 +3,7 @@ title: "React Performance Patterns I Use in Production"
 description: "A practical guide to the React performance techniques I apply daily: memoization, code splitting, virtualization and more."
 pubDate: 2026-04-25
 tags: ["React", "Performance", "TypeScript", "Frontend"]
+category: tech
 minutesRead: 8
 ---
 
