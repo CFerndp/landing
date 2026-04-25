@@ -1,27 +1,69 @@
 ---
 import { experience } from "../../../data/experience";
-import "./styles.css";
+import SectionTitle from "../../../components/atoms/SectionTitle/index.astro";
+import TimelineItem from "../../../components/molecules/TimelineItem/index.astro";
 ---
 
 <section id="experience">
-    <h2 class="section-title title-pink reveal">
-        Work Experience<span class="line"></span>
-    </h2>
+    <SectionTitle color="pink">Work Experience</SectionTitle>
 
     <div class="timeline">
         {
             experience.map((item, index) => (
-                <div class={`timeline-item reveal stagger-${(index % 5) + 1}`}>
-                    <div class="timeline-date font-mono">{item.date}</div>
-                    <div class="timeline-role font-orbitron">{item.role}</div>
-                    <div class="timeline-company">{item.company}</div>
-                    <ul class="timeline-desc">
-                        {item.items.map((bullet) => (
-                            <li>{bullet}</li>
-                        ))}
-                    </ul>
+                <div class={`reveal stagger-${(index % 5) + 1}`}>
+                    <TimelineItem
+                        date={item.date}
+                        role={item.role}
+                        company={item.company}
+                        items={item.items}
+                    />
                 </div>
             ))
         }
     </div>
 </section>
+
+<style>
+    .timeline {
+        position: relative;
+        padding-left: 3rem;
+    }
+
+    .timeline::before {
+        content: "";
+        position: absolute;
+        left: 0;
+        top: 0;
+        bottom: 0;
+        width: 2px;
+        background: linear-gradient(
+            to bottom,
+            #00e5ff,
+            #bf5fff,
+            #ff2d95,
+            #39ff14
+        );
+        border-radius: 2px;
+    }
+
+    @media (max-width: 768px) {
+        .timeline {
+            padding-left: 2rem;
+        }
+    }
+
+    @media (max-width: 600px) {
+        .timeline {
+            padding-left: 1.5rem;
+        }
+        .timeline::before {
+            width: 1px;
+        }
+    }
+
+    @media (max-width: 374px) {
+        .timeline {
+            padding-left: 1.2rem;
+        }
+    }
+</style>

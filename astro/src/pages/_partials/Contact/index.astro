@@ -1,12 +1,11 @@
 ---
 import { contact } from "../../../data/contact";
-import "./styles.css";
+import SectionTitle from "../../../components/atoms/SectionTitle/index.astro";
+import ContactCard from "../../../components/molecules/ContactCard/index.astro";
 ---
 
 <section id="contact">
-    <h2 class="section-title title-blue reveal">
-        Let's Connect<span class="line"></span>
-    </h2>
+    <SectionTitle color="blue">Let's Connect</SectionTitle>
 
     <p class="contact-subtitle reveal">
         Open to new opportunities, collaborations, and interesting
@@ -16,21 +15,44 @@ import "./styles.css";
     <div class="contact-grid">
         {
             contact.map((item, index) => (
-                <a
-                    href={item.value}
-                    class={`contact-card reveal stagger-${(index % 3) + 1} ${item.iconColor}-card`}
-                    target={item.isExternal ? "_blank" : undefined}
-                    rel={item.isExternal ? "noopener noreferrer" : undefined}
-                >
-                    <div class={`contact-icon ${item.iconColor}`}>
-                        {item.icon}
-                    </div>
-                    <div class="contact-info">
-                        <div class="contact-label">{item.label}</div>
-                        <div class="contact-value">{item.displayValue}</div>
-                    </div>
-                </a>
+                <div class={`reveal stagger-${(index % 3) + 1}`}>
+                    <ContactCard
+                        label={item.label}
+                        value={item.value}
+                        displayValue={item.displayValue}
+                        iconColor={item.iconColor}
+                        icon={item.icon}
+                        isExternal={item.isExternal}
+                    />
+                </div>
             ))
         }
     </div>
 </section>
+
+<style>
+    .contact-subtitle {
+        text-align: center;
+        color: #888;
+        margin-bottom: 3rem;
+        font-size: 1rem;
+        line-height: 1.8;
+        max-width: 600px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .contact-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+        gap: 1.5rem;
+        max-width: 800px;
+        margin: 0 auto;
+    }
+
+    @media (max-width: 400px) {
+        .contact-grid {
+            grid-template-columns: 1fr;
+        }
+    }
+</style>

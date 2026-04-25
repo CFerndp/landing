@@ -1,0 +1,81 @@
+---
+type TitleColor = "blue" | "green" | "pink" | "purple";
+type HeadingLevel = "h1" | "h2" | "h3";
+
+interface Props {
+    color?: TitleColor;
+    as?: HeadingLevel;
+    class?: string;
+    reveal?: boolean;
+}
+
+const {
+    color = "blue",
+    as: Tag = "h2",
+    class: className = "",
+    reveal = true,
+} = Astro.props;
+---
+
+<Tag
+    class={`section-title section-title--${color} ${reveal ? "reveal" : ""} ${className}`}
+>
+    <slot />
+    <span class="section-title__line"></span>
+</Tag>
+
+<style>
+    .section-title {
+        font-family: "Orbitron", sans-serif;
+        font-size: clamp(1.5rem, 4vw, 2.2rem);
+        text-transform: uppercase;
+        letter-spacing: 4px;
+        margin-bottom: 3rem;
+        text-align: center;
+        position: relative;
+    }
+
+    .section-title__line {
+        display: block;
+        width: 80px;
+        height: 2px;
+        margin: 0.8rem auto 0;
+        border-radius: 2px;
+    }
+
+    .section-title--blue {
+        color: #00e5ff;
+        text-shadow: 0 0 20px rgba(0, 229, 255, 0.5);
+    }
+    .section-title--blue .section-title__line {
+        background: #00e5ff;
+        box-shadow: 0 0 10px #00e5ff;
+    }
+
+    .section-title--green {
+        color: #39ff14;
+        text-shadow: 0 0 20px rgba(57, 255, 20, 0.5);
+    }
+    .section-title--green .section-title__line {
+        background: #39ff14;
+        box-shadow: 0 0 10px #39ff14;
+    }
+
+    .section-title--pink {
+        color: #ff2d95;
+        text-shadow: 0 0 20px rgba(255, 45, 149, 0.5);
+    }
+    .section-title--pink .section-title__line {
+        background: #ff2d95;
+        box-shadow: 0 0 10px #ff2d95;
+    }
+
+    .section-title--purple {
+        color: #bf5fff;
+        text-shadow: 0 0 20px rgba(191, 95, 255, 0.5);
+    }
+    .section-title--purple .section-title__line {
+        background: #bf5fff;
+        box-shadow: 0 0 10px #bf5fff;
+    }
+</style>

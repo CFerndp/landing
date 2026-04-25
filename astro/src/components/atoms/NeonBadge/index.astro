@@ -1,0 +1,88 @@
+---
+type BadgeColor = 'blue' | 'green' | 'pink' | 'purple';
+type BadgeShape = 'pill' | 'square';
+
+interface Props {
+  color?: BadgeColor;
+  shape?: BadgeShape;
+  class?: string;
+}
+
+const { color = 'blue', shape = 'pill', class: className = '' } = Astro.props;
+---
+
+<span class={`neon-badge neon-badge--${color} neon-badge--${shape} ${className}`}>
+  <slot />
+</span>
+
+<style>
+  .neon-badge {
+    display: inline-block;
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.78rem;
+    letter-spacing: 0.5px;
+    border: 1px solid;
+    cursor: default;
+    transition: all 0.3s ease;
+    white-space: nowrap;
+  }
+
+  .neon-badge--pill   { border-radius: 20px; padding: 0.3rem 0.85rem; }
+  .neon-badge--square { border-radius: 4px;  padding: 0.35rem 0.9rem; }
+
+  /* Blue */
+  .neon-badge--blue {
+    color: #00e5ff;
+    background: rgba(0, 229, 255, 0.06);
+    border-color: rgba(0, 229, 255, 0.15);
+  }
+  .neon-badge--blue:hover {
+    background: rgba(0, 229, 255, 0.14);
+    border-color: rgba(0, 229, 255, 0.4);
+    box-shadow: 0 0 10px rgba(0, 229, 255, 0.25);
+    text-shadow: 0 0 6px rgba(0, 229, 255, 0.6);
+    transform: scale(1.05);
+  }
+
+  /* Green */
+  .neon-badge--green {
+    color: #39ff14;
+    background: rgba(57, 255, 20, 0.06);
+    border-color: rgba(57, 255, 20, 0.15);
+  }
+  .neon-badge--green:hover {
+    background: rgba(57, 255, 20, 0.14);
+    border-color: rgba(57, 255, 20, 0.4);
+    box-shadow: 0 0 10px rgba(57, 255, 20, 0.25);
+    text-shadow: 0 0 6px rgba(57, 255, 20, 0.6);
+    transform: scale(1.05);
+  }
+
+  /* Pink */
+  .neon-badge--pink {
+    color: #ff2d95;
+    background: rgba(255, 45, 149, 0.06);
+    border-color: rgba(255, 45, 149, 0.15);
+  }
+  .neon-badge--pink:hover {
+    background: rgba(255, 45, 149, 0.14);
+    border-color: rgba(255, 45, 149, 0.4);
+    box-shadow: 0 0 10px rgba(255, 45, 149, 0.25);
+    text-shadow: 0 0 6px rgba(255, 45, 149, 0.6);
+    transform: scale(1.05);
+  }
+
+  /* Purple */
+  .neon-badge--purple {
+    color: #bf5fff;
+    background: rgba(191, 95, 255, 0.06);
+    border-color: rgba(191, 95, 255, 0.15);
+  }
+  .neon-badge--purple:hover {
+    background: rgba(191, 95, 255, 0.14);
+    border-color: rgba(191, 95, 255, 0.4);
+    box-shadow: 0 0 10px rgba(191, 95, 255, 0.25);
+    text-shadow: 0 0 6px rgba(191, 95, 255, 0.6);
+    transform: scale(1.05);
+  }
+</style>

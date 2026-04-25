@@ -1,0 +1,123 @@
+---
+interface Props {
+    date: string;
+    degree: string;
+    school: string;
+    details: string[];
+}
+
+const { date, degree, school, details } = Astro.props;
+---
+
+<div class="edu-card neon-card">
+    <div class="edu-accent"></div>
+    <div class="edu-date font-mono">{date}</div>
+    <div class="edu-degree font-orbitron">{degree}</div>
+    <div class="edu-school">{school}</div>
+    <ul class="edu-list">
+        {details.map((d) => <li>{d}</li>)}
+    </ul>
+</div>
+
+<style>
+    .edu-card {
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        border: 1px solid rgba(191, 95, 255, 0.12);
+        padding: 2rem;
+        position: relative;
+        overflow: hidden;
+        transition:
+            transform 0.3s ease,
+            border-color 0.3s ease,
+            box-shadow 0.3s ease;
+    }
+
+    .edu-card {
+        border: 1px solid rgba(191, 95, 255, 0.12);
+        padding: 2rem;
+        position: relative;
+        overflow: hidden;
+        transition:
+            transform 0.3s ease,
+            border-color 0.3s ease,
+            box-shadow 0.3s ease;
+    }
+
+    .edu-accent {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 3px;
+        background: linear-gradient(90deg, #bf5fff, #ff2d95);
+    }
+
+    .edu-card:hover {
+        transform: translateY(-4px);
+        border-color: rgba(191, 95, 255, 0.5);
+        box-shadow:
+            0 8px 30px rgba(191, 95, 255, 0.2),
+            0 0 0 1px rgba(191, 95, 255, 0.15);
+    }
+
+    .edu-date {
+        font-size: 0.8rem;
+        color: #39ff14;
+        letter-spacing: 2px;
+        margin-bottom: 0.75rem;
+        text-shadow: 0 0 8px rgba(57, 255, 20, 0.4);
+    }
+
+    .edu-degree {
+        font-size: clamp(0.85rem, 1.8vw, 1rem);
+        font-weight: 600;
+        color: #ffffff;
+        letter-spacing: 1px;
+        line-height: 1.4;
+        margin-bottom: 0.5rem;
+        text-transform: uppercase;
+    }
+
+    .edu-school {
+        font-size: 0.9rem;
+        color: #bf5fff;
+        margin-bottom: 1.25rem;
+        text-shadow: 0 0 8px rgba(191, 95, 255, 0.3);
+    }
+
+    /* Diamond bullets for education */
+    .edu-list {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        display: flex;
+        flex-direction: column;
+        gap: 0.45rem;
+    }
+
+    .edu-list li {
+        position: relative;
+        padding-left: 1.4rem;
+        font-size: 0.9rem;
+        color: #aaa;
+        line-height: 1.5;
+    }
+
+    .edu-list li::before {
+        content: "◇";
+        position: absolute;
+        left: 0;
+        color: #bf5fff;
+        font-size: 0.7rem;
+        top: 0.15rem;
+        text-shadow: 0 0 6px rgba(191, 95, 255, 0.6);
+    }
+
+    @media (max-width: 400px) {
+        .edu-card {
+            padding: 1.5rem;
+        }
+    }
+</style>

@@ -1,27 +1,38 @@
 ---
 import { education } from "../../../data/education";
-import "./styles.css";
+import SectionTitle from "../../../components/atoms/SectionTitle/index.astro";
+import EducationCard from "../../../components/molecules/EducationCard/index.astro";
 ---
 
 <section id="education">
-    <h2 class="section-title title-purple reveal">
-        Education<span class="line"></span>
-    </h2>
+    <SectionTitle color="purple">Education</SectionTitle>
 
     <div class="edu-grid">
         {
             education.map((item) => (
-                <div class="edu-card reveal">
-                    <div class="edu-date font-mono">{item.date}</div>
-                    <div class="edu-degree font-orbitron">{item.degree}</div>
-                    <div class="edu-school">{item.school}</div>
-                    <ul class="edu-details">
-                        {item.details.map((detail) => (
-                            <li>{detail}</li>
-                        ))}
-                    </ul>
+                <div class="reveal">
+                    <EducationCard
+                        date={item.date}
+                        degree={item.degree}
+                        school={item.school}
+                        details={item.details}
+                    />
                 </div>
             ))
         }
     </div>
 </section>
+
+<style>
+    .edu-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+        gap: 2rem;
+    }
+
+    @media (max-width: 400px) {
+        .edu-grid {
+            grid-template-columns: 1fr;
+        }
+    }
+</style>

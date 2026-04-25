@@ -1,31 +1,36 @@
 ---
 import { skills } from "../../../data/skills";
-import "./styles.css";
+import SectionTitle from "../../../components/atoms/SectionTitle/index.astro";
+import SkillCategory from "../../../components/molecules/SkillCategory/index.astro";
 ---
 
 <section id="skills">
-    <h2 class="section-title title-green reveal">
-        Tech Stack<span class="line"></span>
-    </h2>
+    <SectionTitle color="green">Tech Stack</SectionTitle>
 
     <div class="skills-grid">
         {
             skills.map((category, i) => (
-                <div class={`skill-category reveal stagger-${(i % 5) + 1}`}>
-                    <div class="skill-cat-title font-orbitron">
-                        {category.title}
-                    </div>
-                    <div class="skill-tags">
-                        {category.tags.map((tag) => (
-                            <span
-                                class={`skill-tag skill-tag--${tag.color} font-mono`}
-                            >
-                                {tag.label}
-                            </span>
-                        ))}
-                    </div>
+                <div class={`reveal stagger-${(i % 5) + 1}`}>
+                    <SkillCategory
+                        title={category.title}
+                        tags={category.tags}
+                    />
                 </div>
             ))
         }
     </div>
 </section>
+
+<style>
+    .skills-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 2rem;
+    }
+
+    @media (max-width: 400px) {
+        .skills-grid {
+            grid-template-columns: 1fr;
+        }
+    }
+</style>

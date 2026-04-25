@@ -1,0 +1,47 @@
+---
+---
+
+<div class="particles">
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+</div>
+
+<style>
+.particles {
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    overflow: hidden;
+}
+
+.particles span {
+    position: absolute;
+    display: block;
+    width: 3px;
+    height: 3px;
+    border-radius: 50%;
+    opacity: 0;
+    animation: particleFloat linear infinite;
+    bottom: -10px;
+}
+
+.particles span:nth-child(1)  { left: 10%; background: #00e5ff; box-shadow: 0 0 6px 1px #00e5ff; animation-duration: 12s; animation-delay: 0s; }
+.particles span:nth-child(2)  { left: 25%; background: #ff2d95; box-shadow: 0 0 6px 1px #ff2d95; animation-duration: 15s; animation-delay: 2s; }
+.particles span:nth-child(3)  { left: 40%; background: #39ff14; box-shadow: 0 0 6px 1px #39ff14; animation-duration: 10s; animation-delay: 4s; }
+.particles span:nth-child(4)  { left: 55%; background: #bf5fff; box-shadow: 0 0 6px 1px #bf5fff; animation-duration: 18s; animation-delay: 1s; }
+.particles span:nth-child(5)  { left: 70%; background: #00e5ff; box-shadow: 0 0 6px 1px #00e5ff; animation-duration: 14s; animation-delay: 3s; }
+.particles span:nth-child(6)  { left: 85%; background: #ff2d95; box-shadow: 0 0 6px 1px #ff2d95; animation-duration: 11s; animation-delay: 5s; }
+.particles span:nth-child(7)  { left: 15%; background: #39ff14; box-shadow: 0 0 6px 1px #39ff14; animation-duration: 16s; animation-delay: 6s; }
+.particles span:nth-child(8)  { left: 50%; background: #bf5fff; box-shadow: 0 0 6px 1px #bf5fff; animation-duration: 13s; animation-delay: 7s; }
+.particles span:nth-child(9)  { left: 65%; background: #00e5ff; box-shadow: 0 0 6px 1px #00e5ff; animation-duration: 17s; animation-delay: 0.5s; }
+.particles span:nth-child(10) { left: 90%; background: #39ff14; box-shadow: 0 0 6px 1px #39ff14; animation-duration: 9s;  animation-delay: 3.5s; }
+</style>
