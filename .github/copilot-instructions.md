@@ -284,6 +284,31 @@ draft: false             # optional, defaults to false
 
 Edit **only** `src/data/categories.ts`. Add a new entry to the `CATEGORIES` array. Everything else (schema validation, filter buttons, badge colors) updates automatically.
 
+### Images in blog posts
+
+Images for a post live in `public/blog/[post-slug]/`. They are served at the root, so they are referenced in Markdown with an absolute path:
+
+```
+public/
+└── blog/
+    └── my-post-slug/
+        ├── screenshot-1.png
+        └── screenshot-2.png
+```
+
+```markdown
+![Alt text describing the image](/blog/my-post-slug/screenshot-1.png)
+*Caption shown below the image in italics.*
+```
+
+**Caption convention:** write a *single italicised paragraph* (`*...*`) on the very next line after the image. The global CSS rule `.prose p:has(> img) + p:has(> em:only-child)` styles it as a dimmed monospace caption automatically.
+
+**File naming:** use `kebab-case` for image filenames. Be descriptive — `coolify-service-config.png` not `screenshot1.png`.
+
+**Format:** prefer `.png` for UI screenshots, `.jpg`/`.webp` for photos. Keep images under 500 KB; run through a compressor (e.g. `squoosh.app`) before committing.
+
+Do **not** place post images inside `src/` — they must live in `public/blog/[slug]/` to be served correctly.
+
 ---
 
 ## BaseLayout
