@@ -1,10 +1,11 @@
 ---
 interface Props {
   href?: string;
-  color?: 'blue' | 'pink';
+  color?: 'blue' | 'pink' | 'green';
   target?: string;
   rel?: string;
   type?: 'button' | 'submit' | 'reset';
+  download?: string | boolean;
   class?: string;
 }
 
@@ -14,6 +15,7 @@ const {
   target,
   rel,
   type = 'button',
+  download,
   class: className = '',
 } = Astro.props;
 ---
@@ -23,6 +25,7 @@ const {
     href={href}
     target={target}
     rel={rel}
+    download={download}
     class={`btn-neon btn--${color} ${className}`}
   >
     <slot />
@@ -79,5 +82,15 @@ const {
     background: rgba(255, 45, 149, 0.1);
     box-shadow: 0 0 25px rgba(255, 45, 149, 0.4), inset 0 0 25px rgba(255, 45, 149, 0.1);
     text-shadow: 0 0 8px #ff2d95;
+  }
+
+  .btn--green {
+    color: #39ff14;
+    border: 1px solid #39ff14;
+  }
+  .btn--green:hover {
+    background: rgba(57, 255, 20, 0.1);
+    box-shadow: 0 0 25px rgba(57, 255, 20, 0.4), inset 0 0 25px rgba(57, 255, 20, 0.1);
+    text-shadow: 0 0 8px #39ff14;
   }
 </style>

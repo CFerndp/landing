@@ -21,6 +21,14 @@
             <li><a href="/#skills" class="nav-link">Skills</a></li>
             <li><a href="/#contact" class="nav-link">Contact</a></li>
             <li><a href="/blog" class="nav-link">Blog</a></li>
+            <li>
+                <a
+                    href="/cv_cristian_fernandez.pdf"
+                    download="cv_cristian_fernandez.pdf"
+                    class="nav-link nav-cv"
+                    aria-label="Download CV"
+                >&#8659;&nbsp;CV</a>
+            </li>
         </ul>
     </div>
 </nav>
@@ -140,6 +148,20 @@
         inset 0 0 8px rgba(0, 229, 255, 0.05);
     text-shadow: 0 0 8px rgba(0, 229, 255, 0.8);
     background: rgba(0, 229, 255, 0.03);
+}
+
+.nav-cv {
+    color: #39ff14;
+    border-color: rgba(57, 255, 20, 0.25);
+}
+
+.nav-cv:hover {
+    border-color: #39ff14 !important;
+    box-shadow:
+        0 0 12px rgba(57, 255, 20, 0.4),
+        inset 0 0 8px rgba(57, 255, 20, 0.05) !important;
+    text-shadow: 0 0 8px rgba(57, 255, 20, 0.8) !important;
+    background: rgba(57, 255, 20, 0.03) !important;
 }
 
 .hamburger {
