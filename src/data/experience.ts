@@ -18,13 +18,14 @@ export const experience: ExperienceItem[] = [
   },
   {
     date: "2024 — 2026",
-    role: "Senior Fullstack Developer",
+    role: "Senior Fullstack Developer & Frontend Tech Lead",
     company: "Alira Health",
     items: [
-      "Led mobile app development with React Native, optimizing performance and UX",
-      "Built scalable web apps with React (Vite) & Next.js",
-      "Implemented TDD approach, enhancing code reliability in production",
-      "Implement BE logic in Django and Django ninja for data processing and API development",
+      "Tech Lead for frontend team: defined architecture standards, coordinated development, and aligned technical decisions with product goals",
+      "Led development of mobile apps with React Native and web apps with React (Vite) & Next.js",
+      "Established TDD practices and comprehensive testing workflows, reducing production bugs",
+      "Implemented backend solutions in Django with BFF architecture using Django Ninja",
+      "Mentored team members on React best practices, TypeScript patterns, and modern tooling",
     ],
   },
   {
@@ -42,9 +43,11 @@ export const experience: ExperienceItem[] = [
     role: "CTO",
     company: "Ekonoke",
     items: [
-      "Analyzed business structure and resolved trust issues via agile methodologies",
-      "Mentoring, career paths, budget definition, and team organization via SCRUM",
-      "IoT programming (ESP8266), custom hardware troubleshooting",
+      "Led complete technology department restructuring, defining IT strategy and budget allocation",
+      "Resolved organizational issues between engineering and product teams via tailored Agile methodologies",
+      "Designed career paths and mentorship programs for engineering team",
+      "Established Scrum framework: daily standups, sprint planning, retrospectives",
+      "Hands-on IoT programming (ESP8266) and custom hardware troubleshooting",
     ],
   },
   {
@@ -52,8 +55,9 @@ export const experience: ExperienceItem[] = [
     role: "Lead Mobile Developer",
     company: "TaxDown",
     items: [
-      "Led mobile development for Spain's leading tax management app",
-      "React Native cross-platform solutions for iOS & Android",
+      "Led mobile development team for tax management app serving thousands of users",
+      "Defined mobile architecture strategy and coding standards for React Native codebase",
+      "Coordinated with backend team to design API contracts and data sync strategies",
     ],
   },
   {
@@ -86,12 +90,14 @@ export const experience: ExperienceItem[] = [
   },
   {
     date: "2015 — 2018",
-    role: "Senior FullStack Developer & Team Leader",
+    role: "Senior Fullstack Developer & Team Leader",
     company: "Delonia Software",
     items: [
-      "React, Angular, Xamarin, Ionic for web & mobile apps",
-      "IoT biometric systems with .NET; Microservice architectures with .NET Core",
-      "TDD with Karma, Jasmine, Jest; code quality with SonarQube",
+      "Team Leader: coordinated sprint planning, task distribution, and acted as client liaison",
+      "Architected web apps with React, Angular, .NET; mobile apps with Xamarin, Ionic",
+      "Designed and implemented microservice architectures with .NET Core",
+      "Established TDD practices (Karma, Jasmine, Jest) and code quality monitoring with SonarQube",
+      "Developed IoT access control systems with .NET and biometric devices",
     ],
   },
   {

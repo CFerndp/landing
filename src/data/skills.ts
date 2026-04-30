@@ -12,6 +12,19 @@ export interface SkillCategory {
 
 export const skills: SkillCategory[] = [
   {
+    title: "Leadership & Architecture",
+    tags: [
+      { label: "Technical Strategy", color: "purple" },
+      { label: "Team Leadership", color: "purple" },
+      { label: "Mentoring", color: "purple" },
+      { label: "Scrum Master", color: "purple" },
+      { label: "System Design", color: "purple" },
+      { label: "Microservices", color: "purple" },
+      { label: "Code Reviews", color: "purple" },
+      { label: "Agile", color: "purple" },
+    ],
+  },
+  {
     title: "Frontend",
     tags: [
       { label: "React", color: "blue" },
@@ -79,14 +92,12 @@ export const skills: SkillCategory[] = [
     ],
   },
   {
-    title: "Methodologies",
+    title: "Databases & Tools",
     tags: [
-      { label: "Scrum", color: "purple" },
-      { label: "Agile", color: "purple" },
-      { label: "TDD", color: "purple" },
-      { label: "Microservices", color: "purple" },
-      { label: "Team Leadership", color: "purple" },
-      { label: "Mentoring", color: "purple" },
+      { label: "PostgreSQL", color: "purple" },
+      { label: "MySQL", color: "purple" },
+      { label: "REST APIs", color: "purple" },
+      { label: "BFF Pattern", color: "purple" },
     ],
   },
 ];

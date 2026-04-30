@@ -1,27 +1,27 @@
 export const profile = {
   name: "Cristian Fernandez",
-  subtitle: "Senior Software Developer & Associate Professor",
+  subtitle: "Tech Lead & Senior Fullstack Developer",
   location: "📍 Madrid, Spain",
   tagline:
-    "Engineering high-quality solutions with passion — from scalable frontends to IoT systems and everything in between.",
+    "Leading engineering teams and architecting scalable solutions — from technical strategy to hands-on development across the full stack.",
 
   stats: [
-    { number: "13+", label: "Years Experience" },
+    { number: "14+", label: "Years Experience" },
     { number: "1150+", label: "LinkedIn Connections" },
     { number: "10+", label: "Companies" },
   ],
 
   bio: [
-    "Passionate about delivering high-quality solutions, I am dedicated to continuous improvement and embracing new challenges. I consider myself an engineer at heart, driven by a commitment to finding and implementing optimal solutions.",
-    "This adaptability has enabled me to work confidently with diverse technologies and frameworks, especially in freelance roles where flexibility and rapid learning are essential. From building scalable frontends with React to architecting backend systems with NestJS and Django, I bring a full-spectrum engineering mindset.",
-    "Beyond development, I serve as an Associate Professor at Comillas University, sharing my industry expertise with the next generation of developers — bridging the gap between academia and real-world engineering.",
+    "Tech Lead and Fullstack Developer with 14+ years building scalable web and mobile applications. Expert in defining technical strategy, establishing engineering best practices (TDD, CI/CD, code reviews), and mentoring developers across the stack.",
+    "I combine hands-on technical expertise with leadership skills — from architecting microservices with Django and NestJS, to building performant frontends with React and TypeScript. My adaptability enables me to translate complex business requirements into robust technical solutions, whether as a team leader or individual contributor.",
+    "Beyond development, I serve as Associate Professor at Comillas University, bridging the gap between academia and industry by sharing real-world engineering practices with the next generation of developers.",
   ],
 
   details: [
-    { label: "STATUS", value: "Senior Frontend Dev & Professor" },
+    { label: "STATUS", value: "Tech Lead & Fullstack Developer" },
     { label: "LOCATION", value: "Madrid, Spain" },
-    { label: "FOCUS", value: "React · React Native · TypeScript" },
-    { label: "SPECIALTIES", value: "Solution Design · Performance" },
+    { label: "FOCUS", value: "React · Django · Node.js · Architecture" },
+    { label: "SPECIALTIES", value: "Technical Leadership · System Design" },
     { label: "STYLE", value: "Contractor · Freelance" },
   ],
 
@@ -33,5 +33,7 @@ export const profile = {
     "✈️ Travels",
     "🧠 Code Quality",
     "📈 Business Strategy",
+    "🎯 Technical Strategy",
+    "👥 Team Mentoring",
   ],
 };
