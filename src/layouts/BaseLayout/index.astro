@@ -34,9 +34,41 @@ const {
         <Particles />
         <slot />
 
+        <!-- ── Lightbox ──────────────────────────────────────────────────────── -->
+        <div id="lightbox" class="lightbox" role="dialog" aria-modal="true" aria-label="Image viewer">
+            <button id="lightbox-close" class="lightbox__close" aria-label="Close image viewer">✕</button>
+            <img id="lightbox-img" class="lightbox__img" src="" alt="" />
+        </div>
+
         <script>
             // ── Console hint ─────────────────────────────────────────────────────────
             console.log("🕹️ Hint: Try the legendary code...");
+
+            // ── Lightbox ─────────────────────────────────────────────────────────────
+            const lightboxEl = document.getElementById("lightbox") as HTMLElement;
+            const lightboxImg = document.getElementById("lightbox-img") as HTMLImageElement;
+            const lightboxClose = document.getElementById("lightbox-close") as HTMLButtonElement;
+
+            function openLightbox(src: string, alt: string): void {
+                lightboxImg.src = src;
+                lightboxImg.alt = alt;
+                lightboxEl.classList.add("active");
+                document.body.style.overflow = "hidden";
+            }
+
+            function closeLightbox(): void {
+                lightboxEl.classList.remove("active");
+                document.body.style.overflow = "";
+            }
+
+            document.querySelectorAll<HTMLImageElement>("img").forEach((img) => {
+                img.addEventListener("click", () => openLightbox(img.src, img.alt));
+            });
+
+            lightboxEl.addEventListener("click", (e: MouseEvent) => {
+                if (e.target === lightboxEl) closeLightbox();
+            });
+            lightboxClose.addEventListener("click", closeLightbox);
 
             // ── Konami sequence ──────────────────────────────────────────────────────
             const KONAMI_SEQUENCE: string[] = [
@@ -151,11 +183,16 @@ const {
                 }, 500);
             }
 
-            // ── Key listener ─────────────────────────────────────────────────────────
+            // ── Key listener ─────────────────────────────────────────────────────
             document.addEventListener("keydown", (e: KeyboardEvent) => {
-                if (e.code === "Escape" && matrixActive) {
-                    deactivateEasterEgg();
-                    konamiIndex = 0;
+                if (e.code === "Escape") {
+                    if (matrixActive) {
+                        deactivateEasterEgg();
+                        konamiIndex = 0;
+                    }
+                    if (lightboxEl.classList.contains("active")) {
+                        closeLightbox();
+                    }
                     return;
                 }
 

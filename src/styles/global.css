@@ -273,7 +273,77 @@ section {
   }
 }
 
-/* ── EASTER EGG: MATRIX CANVAS ──────────────────────────────────────────────── */
+/* ── LIGHTBOX ────────────────────────────────────────────────────── */
+.lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  background: rgba(0, 0, 0, 0.88);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+
+.lightbox.active {
+  opacity: 1;
+  pointer-events: all;
+}
+
+.lightbox__img {
+  max-width: 90vw;
+  max-height: 85vh;
+  object-fit: contain;
+  border-radius: 8px;
+  border: 1px solid rgba(0, 229, 255, 0.2);
+  box-shadow:
+    0 0 50px rgba(0, 229, 255, 0.12),
+    0 20px 60px rgba(0, 0, 0, 0.8);
+  transform: scale(0.92);
+  transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+  cursor: zoom-out;
+}
+
+.lightbox.active .lightbox__img {
+  transform: scale(1);
+}
+
+.lightbox__close {
+  position: absolute;
+  top: 1.25rem;
+  right: 1.25rem;
+  background: transparent;
+  border: 1px solid rgba(0, 229, 255, 0.25);
+  color: #00e5ff;
+  font-size: 1rem;
+  width: 2.25rem;
+  height: 2.25rem;
+  border-radius: 4px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition:
+    background 0.2s ease,
+    box-shadow 0.2s ease;
+  line-height: 1;
+}
+
+.lightbox__close:hover {
+  background: rgba(0, 229, 255, 0.1);
+  box-shadow: 0 0 14px rgba(0, 229, 255, 0.3);
+}
+
+/* Hint that all images are clickable */
+img {
+  cursor: zoom-in;
+}
+
+/* ── EASTER EGG: MATRIX CANVAS ────────────────────────────────────────── */
 #matrix-canvas {
   position: fixed;
   top: 0;
